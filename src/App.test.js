@@ -11,17 +11,17 @@ const server = setupServer(...handlers);
 
 beforeAll(() => {
   server.listen();
-  console.warn('beforeAll, server.listen()');
+  // console.warn('beforeAll, server.listen()');
 });
 
 afterEach(() => {
   server.resetHandlers();
-  console.warn('afterEach, server.resetHandlers()')
+  // console.warn('afterEach, server.resetHandlers()')
 });
 
 afterAll(() => {
   server.close();
-  console.warn('afterAll, server.close()')
+  // console.warn('afterAll, server.close()')
 });
 
 test("should render with data (passes)", async () => {
@@ -119,26 +119,3 @@ test("should render with different data (fails)", async () => {
     </div>
   `);
 });
-
-
-// this test does not log the error, it logs the data from the previous mock
-test('should log error message', async () => {
-    server.use(
-        // Intercept the named query for the page and mock the response
-        graphql.query('CompaniesQuery', (req, res, ctx) => {
-            return res(
-                ctx.errors([
-                    {
-                        message: 'Error message',
-                        stack: null,
-                    },
-                ]),
-            );
-        }),
-    );
-  
-    render(<ApolloProvider client={client}><App /></ApolloProvider>);
-  
-    await screen.findByLabelText('hello');
-    await screen.findByLabelText('hello');
-  });
