@@ -1,8 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
 
-import logo from './logo.svg';
-import './App.css';
-
 const GET_COMPANIES = gql`
     query CompaniesQuery {
         companies {
@@ -15,14 +12,8 @@ const GET_COMPANIES = gql`
 `;
 
 function App() {
-<<<<<<< HEAD
-  const { loading, data, error, refetch } = useQuery(GET_COMPANIES);  
-  console.log('data', data);
-  console.log('error', error);
-=======
-  const { loading, data, error, refetch } = useQuery(GET_COMPANIES);
+  const { loading, data, error } = useQuery(GET_COMPANIES);
   // console.log({loading, data, error})
->>>>>>> fa37f45... create repro case
   return (
       <div className="App" >
         {data && <div data-testid="data">{JSON.stringify(data)}</div>}
