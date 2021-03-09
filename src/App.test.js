@@ -27,7 +27,7 @@ afterAll(() => {
   server.close();
 });
 
-test('should render with data', async () => {
+test('should log companies data', async () => {
   server.use(
       // Intercept the named query for the page and mock the response
       graphql.query('CompaniesQuery', (req, res, ctx) => {
@@ -54,7 +54,29 @@ test('should render with data', async () => {
 
   render(<ApolloProvider client={client}><App /></ApolloProvider>);
 
-  expect(await screen.findByLabelText('hello')).toBeInTheDocument();
-
-  expect(await screen.findByLabelText('hello')).toBeInTheDocument();
+  await screen.findByLabelText('hello');
+  await screen.findByLabelText('hello');
 });
+
+
+// this test does not log the error, it logs the data from the previous mock
+test('should log error message', async () => {
+    server.use(
+        // Intercept the named query for the page and mock the response
+        graphql.query('CompaniesQuery', (req, res, ctx) => {
+            return res(
+                ctx.errors([
+                    {
+                        message: 'Error message',
+                        stack: null,
+                    },
+                ]),
+            );
+        }),
+    );
+  
+    render(<ApolloProvider client={client}><App /></ApolloProvider>);
+  
+    await screen.findByLabelText('hello');
+    await screen.findByLabelText('hello');
+  });

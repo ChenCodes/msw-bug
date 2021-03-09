@@ -16,6 +16,8 @@ const GET_COMPANIES = gql`
 
 function App() {
   const { loading, data, error, refetch } = useQuery(GET_COMPANIES);  
+  console.log('data', data);
+  console.log('error', error);
   return (
       <div className="App" />
   );
