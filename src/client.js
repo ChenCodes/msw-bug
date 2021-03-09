@@ -5,7 +5,7 @@ import { relayStylePagination } from '@apollo/client/utilities';
 import fetchPolyfill from 'cross-fetch'; // For IE11
 
 const client = new ApolloClient({
-    link: createHttpLink({ uri: '/app-api/graphql', fetch: fetchPolyfill }),
+    link: createHttpLink({ uri: 'http://localhost:3000/app-api/graphql', fetch: fetchPolyfill }),
     cache: new InMemoryCache({}),
 });
 
