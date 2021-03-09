@@ -19,6 +19,10 @@ afterEach(() => {
   // console.warn('afterEach, server.resetHandlers()')
 });
 
+beforeEach(() => {
+  client.resetStore(); // Solution!
+})
+
 afterAll(() => {
   server.close();
   // console.warn('afterAll, server.close()')
@@ -106,6 +110,8 @@ test("should render with different data (fails)", async () => {
     We are rendering the same component as in the first test but want to
     show different data by changing the msw GraphQL mock implementation.
     But we get the same data as in the first test. The next assertion fails.
+
+    (FIXED in last commit)
   `)
 
   expect(data).toMatchObject({
